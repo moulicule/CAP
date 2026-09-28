@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch a Predator (CaP) // Cappy</title>
+  <meta name="description" content="A physical wearable companion that sniffs out nearby Meta Ray-Bans and smart glasses in real time. Designed and built by Moulik Nanda.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body class="glasses-on">
+
+  <!-- =========================================================================
+       HEADER
+       ========================================================================= -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <button id="glassesToggleBtn" class="pill-btn glasses-btn active" title="Toggle Smart Glasses (ON/OFF)">
+          <span>🕶️</span>
+          <span class="glasses-toggle-text">Glasses: ON</span>
+        </button>
+        <a href="#" class="brand-link">
+          <div class="cappy-logo-mark">
+            <div class="cappy-logo-eyes">
+              <div class="logo-eye"></div>
+              <div class="logo-eye"></div>
+            </div>
+          </div>
+          <div class="brand-meta">
+            <span class="brand-title">CAPPY // CaP</span>
+            <span class="brand-sub">Catch a Predator</span>
+          </div>
+        </a>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <button id="audioToggleBtn" class="pill-btn active" title="Toggle Haptic Buzzer Sound">
+          <span class="audio-text">Haptics: ON</span>
+        </button>
+        <span class="pill-btn" style="background: #fff; cursor: default;">
+          <span style="display: inline-block; width: 7px; height: 7px; background: var(--cappy-orange); border-radius: 50%;"></span>
+          <span>CAPPY 2.0</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO & INTERACTIVE CAPPY SIMULATOR
+       ========================================================================= -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <!-- Left: Story & Intro -->
+      <div>
+        <span class="hero-tag">Tactical Privacy Companion</span>
+        <h1 class="hero-title">
+          <span class="orange-highlight">Catch a Predator (CaP)</span>
+        </h1>
+        <p class="hero-lead">
+          Meet <strong>Cappy</strong>, the pocket companion of <strong>CaP</strong>. Built with an ESP32-S3 and housed in a 3D-printed orange squircle case, Cappy sniffs out nearby Meta Ray-Bans and smart glasses in real time&mdash;reacting with expressive procedural eyes, haptic vibrations, and knock wakeups.
+        </p>
+
+        <div class="hero-specs-row">
+          <span class="spec-badge">ESP32-S3 Dual-Core</span>
+          <span class="spec-badge">1.28&Prime; Round LCD</span>
+          <span class="spec-badge">BLE Sniffer</span>
+          <span class="spec-badge">Haptic Motor</span>
+          <span class="spec-badge">Knock Sensor</span>
+        </div>
+      </div>
+
+      <!-- Right: Interactive Cappy Chassis -->
+      <div class="cappy-stage">
+        <div class="cappy-squircle" id="cappyChassis" title="Double-tap Cappy's body to wake him up!">
+          <div class="knock-ripple" id="knockRipple"></div>
+          <div class="round-screen">
+            <canvas id="companionCanvas" width="240" height="240"></canvas>
+            <div class="screen-glass"></div>
+          </div>
+        </div>
+
+        <p class="knock-hint">👋 Double-tap on Cappy&rsquo;s body to wake him up</p>
+
+        <!-- Compact Controls -->
+        <div class="sim-controls">
+          <div class="control-row-header">
+            <span>Glass Proximity</span>
+            <span id="proximityValLabel" style="color: var(--cappy-orange);">Undetected</span>
+          </div>
+
+          <input type="range" id="proximitySlider" class="custom-slider" min="0" max="3" value="0" step="0.01">
+          <div class="slider-ticks">
+            <span>Undetected</span>
+            <span>Detected</span>
+            <span>Close</span>
+            <span>Close up</span>
+          </div>
+
+          <div class="mood-buttons-grid">
+            <button class="mood-btn active" data-emo="DEFAULT">Safe</button>
+            <button class="mood-btn" data-emo="CURIOUS">Detected</button>
+            <button class="mood-btn" data-emo="ANGRY">Close</button>
+            <button class="mood-btn" data-emo="RAGE">Close up</button>
+            <button class="mood-btn" data-emo="SLEEPY">Drowsy</button>
+            <button class="mood-btn" data-emo="SLEEPING">Sleep</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       THE PROBLEM & THE SOLUTION
+       ========================================================================= -->
+  <section class="clean-section">
+    <div class="container">
+      <div class="split-cards">
+        <div class="clean-card">
+          <h2 class="clean-card-title">The Surveillance Dilemma</h2>
+          <p class="clean-card-text">
+            Smart glasses look virtually indistinguishable from regular designer frames, yet pack cameras and microphones right at eye level. They record people in public and private spaces without consent, while indicator LEDs are easily missed or covered up.
+          </p>
+        </div>
+
+        <div class="clean-card">
+          <h2 class="clean-card-title">Tactical Defense (CaP)</h2>
+          <p class="clean-card-text">
+            Smart glasses can&rsquo;t hide their radio transmissions. To sync with phones, they constantly broadcast Bluetooth LE advertisement packets with vendor IDs. CaP intercepts these airwaves to warn you immediately through an expressive companion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       CAPPY'S EXPRESSIONS
+       ========================================================================= -->
+  <section class="clean-section" style="background: #f1f1eb;">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Cappy&rsquo;s Expressions</h2>
+        <p class="section-desc">How Cappy reacts to nearby smart glasses in real time</p>
+      </div>
+
+      <div class="moods-grid">
+        <div class="mood-card">
+          <div class="mood-avatar">
+            <div class="mini-eye"></div>
+            <div class="mini-eye"></div>
+          </div>
+          <div class="mood-name">Safe (Default)</div>
+          <div class="mood-trigger">White pill eyes with natural blinks when no glasses are around.</div>
+        </div>
+
+        <div class="mood-card">
+          <div class="mood-avatar curious">
+            <div class="mini-eye yellow"></div>
+            <div class="mini-eye yellow"></div>
+          </div>
+          <div class="mood-name">Curious</div>
+          <div class="mood-trigger">Yellow eyes glancing around when glasses are detected + single buzz.</div>
+        </div>
+
+        <div class="mood-card">
+          <div class="mood-avatar angry">
+            <div class="mini-eye red-left"></div>
+            <div class="mini-eye red-right"></div>
+          </div>
+          <div class="mood-name">Angry</div>
+          <div class="mood-trigger">Fierce inward red slashes when glasses get close + double buzz.</div>
+        </div>
+
+        <div class="mood-card">
+          <div class="mood-avatar rage">
+            <div class="mini-eye maroon"></div>
+            <div class="mini-eye maroon"></div>
+          </div>
+          <div class="mood-name">Rage Mode</div>
+          <div class="mood-trigger">Blood-red screen with shaking eyes when someone is right next to you.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       HOW IT'S BUILT
+       ========================================================================= -->
+  <section class="clean-section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">How It&rsquo;s Built</h2>
+        <p class="section-desc">Hardware, firmware, and industrial design</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-box">
+          <div class="step-label">Hardware Stack</div>
+          <h3 class="step-title">ESP32-S3 + Round LCD</h3>
+          <p class="step-text">
+            Powered by a Waveshare ESP32-S3-Zero and a 1.28&Prime; round 240&times;240 GC9A01 LCD running at 30 FPS over 40MHz SPI via DMA. Includes an ADXL345 accelerometer for knock detection and an ERM haptic motor.
+          </p>
+        </div>
+
+        <div class="step-box">
+          <div class="step-label">Firmware Engine</div>
+          <h3 class="step-title">Dual-Core Concurrency</h3>
+          <p class="step-text">
+            Core 0 runs a continuous 100% duty-cycle NimBLE scanner tracking Bluetooth SIG vendor IDs (Meta <code>0x01AB</code>/<code>0x058E</code>, Snap <code>0x03C2</code>, Vuzix). Core 1 runs the spring physics render pipeline.
+          </p>
+        </div>
+
+        <div class="step-box">
+          <div class="step-label">Physical Enclosure</div>
+          <h3 class="step-title">3D-Printed Squircle</h3>
+          <p class="step-text">
+            Designed in Fusion 360 and 3D printed in safety orange. Built to snap securely shut with support for the round display, an integrated battery, USB-C recharge port, and power switch.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><strong>Catch a Predator (CaP)</strong> &bull; A tactical privacy companion by Moulik Nanda</div>
+      <div>Srishti Institute of Art, Design &amp; Technology</div>
+    </div>
+  </footer>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>

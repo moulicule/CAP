@@ -1,0 +1,7 @@
+.pio/build/esp32-s3-zero/lib032/NimBLE-Arduino/nimble/nimble/host/src/ble_hs_resolv.c.o: \
+ .pio/libdeps/esp32-s3-zero/NimBLE-Arduino/src/nimble/nimble/host/src/ble_hs_resolv.c \
+ .pio/libdeps/esp32-s3-zero/NimBLE-Arduino/src/nimble/porting/nimble/include/syscfg/syscfg.h \
+ .pio/libdeps/esp32-s3-zero/NimBLE-Arduino/src/nimble/esp_port/port/include/esp_nimble_cfg.h \
+ .pio/libdeps/esp32-s3-zero/NimBLE-Arduino/src/nimconfig.h \
+ /Users/mouliknanda/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/dio_qspi/include/sdkconfig.h \
+ .pio/libdeps/esp32-s3-zero/NimBLE-Arduino/src/nimconfig_rename.h
